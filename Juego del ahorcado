@@ -1,0 +1,28 @@
+import random
+
+palabras = ['python', 'programacion', 'desarrollo', 'ahorcado', 'algoritmo']
+palabra = random.choice(palabras)
+guiones = ['_'] * len(palabra)
+intentos = 6
+letras_adivinadas = set()
+
+while intentos > 0 and '_' in guiones:
+    print(f"Palabra: {' '.join(guiones)}")
+    letra = input("Introduce una letra: ").lower()
+
+    if letra in letras_adivinadas:
+        print("Ya has adivinado esa letra. Intenta otra.")
+    elif letra in palabra:
+        for i, l in enumerate(palabra):
+            if l == letra:
+                guiones[i] = letra
+        letras_adivinadas.add(letra)
+    else:
+        intentos -= 1
+        letras_adivinadas.add(letra)
+        print(f"Letra incorrecta. Te quedan {intentos} intentos.")
+
+if '_' not in guiones:
+    print(f"¡Ganaste! La palabra era {palabra}.")
+else:
+    print(f"Perdiste. La palabra era {palabra}.")
