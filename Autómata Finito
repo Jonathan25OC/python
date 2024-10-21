@@ -1,0 +1,41 @@
+class DFA:
+    def __init__(self):
+        # Definir el estado inicial
+        self.current_state = 'q0'
+
+        # Definir las transiciones del DFA
+        self.transitions = {
+            'q0': {'0': 'q1', '1': 'q0'},  # Estado inicial
+            'q1': {'0': 'q0', '1': 'q1'},  # Estado con número impar de ceros
+        }
+
+        # Definir el estado de aceptación
+        self.accepting_states = {'q0'}
+
+    def transition(self, symbol):
+        # Actualizar el estado actual basado en el símbolo de entrada
+        if symbol in self.transitions[self.current_state]:
+            self.current_state = self.transitions[self.current_state][symbol]
+        else:
+            raise ValueError(f"Símbolo '{symbol}' no reconocido")
+
+    def is_accepting(self):
+        # Verificar si el estado actual es un estado de aceptación
+        return self.current_state in self.accepting_states
+
+    def run(self, input_string):
+        # Recorrer la cadena de entrada y realizar las transiciones
+        for symbol in input_string:
+            self.transition(symbol)
+        # Retornar si la cadena es aceptada o no
+        return self.is_accepting()
+
+
+# Crear un DFA y probar una cadena binaria
+dfa = DFA()
+binary_string = "110010"
+
+if dfa.run(binary_string):
+    print(f"La cadena '{binary_string}' es aceptada.")
+else:
+    print(f"La cadena '{binary_string}' es rechazada.")
