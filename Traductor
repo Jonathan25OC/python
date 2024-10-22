@@ -1,0 +1,14 @@
+from googletrans import Translator
+
+# Crear un objeto traductor
+traductor = Translator()
+
+# Texto a traducir
+texto = "Hola, ¿cómo estás?"
+
+# Traducir el texto al inglés
+traduccion = traductor.translate(texto, src='es', dest='en')
+
+# Mostrar los resultados
+print(f"Texto original (español): {texto}")
+print(f"Traducción (inglés): {traduccion.text}")
