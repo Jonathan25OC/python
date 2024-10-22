@@ -1,0 +1,32 @@
+import turtle
+
+# Configurar la pantalla
+screen = turtle.Screen()
+screen.bgcolor("white")
+
+# Crear un objeto turtle
+flor = turtle.Turtle()
+flor.speed(10)  # Aumentar la velocidad de dibujo
+
+# Función para dibujar un pétalo
+def petalo():
+    for _ in range(2):
+        flor.circle(100, 60)   # Dibuja un arco
+        flor.left(120)         # Gira el ángulo
+
+# Dibujar la flor completa
+for _ in range(6):
+    petalo()
+    flor.left(60)
+
+# Dibujar el centro de la flor
+flor.penup()
+flor.goto(0, -50)
+flor.pendown()
+flor.color("yellow")
+flor.begin_fill()
+flor.circle(50)
+flor.end_fill()
+
+# Terminar
+turtle.done()
