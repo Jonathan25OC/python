@@ -1,0 +1,7 @@
+from datetime import datetime
+
+# Obtener la fecha y hora exacta
+fecha_hora_actual = datetime.now()
+
+# Mostrar la fecha y hora en formato legible
+fecha_hora_actual
