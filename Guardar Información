@@ -1,0 +1,17 @@
+import pandas as pd
+
+# Crear un diccionario con algunos datos de ejemplo
+datos = {
+    "Nombre": ["Juan", "Ana", "Pedro", "María"],
+    "Edad": [28, 22, 35, 29],
+    "Ciudad": ["Madrid", "Barcelona", "Valencia", "Sevilla"]
+}
+
+# Convertir el diccionario en un DataFrame de pandas
+df = pd.DataFrame(datos)
+
+# Guardar el DataFrame en un archivo Excel
+archivo_excel = "informacion_usuarios.xlsx"
+df.to_excel(archivo_excel, index=False)
+
+print(f"Los datos se han guardado en el archivo {archivo_excel}")
