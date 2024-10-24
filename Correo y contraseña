@@ -1,0 +1,19 @@
+# Datos de ejemplo: correo y contraseña guardados (en un caso real, se almacenaría en una base de datos)
+email_guardado = "usuario@example.com"
+password_guardada = "miContraseñaSegura"
+
+# Función para validar el correo y la contraseña
+def validar_usuario(email, password):
+    if email == email_guardado and password == password_guardada:
+        return True
+    return False
+
+# Solicitar al usuario que introduzca su correo y contraseña
+email_input = input("Introduce tu correo: ")
+password_input = input("Introduce tu contraseña: ")
+
+# Validar los datos introducidos
+if validar_usuario(email_input, password_input):
+    print("¡Acceso concedido!")
+else:
+    print("Correo o contraseña incorrectos.")
