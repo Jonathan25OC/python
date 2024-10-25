@@ -1,0 +1,12 @@
+def criba_eratostenes(n):
+    primos = [True] * (n + 1)
+    p = 2
+    while p ** 2 <= n:
+        if primos[p]:
+            for i in range(p * p, n + 1, p):
+                primos[i] = False
+        p += 1
+    return [p for p in range(2, n + 1) if primos[p]]
+
+n = int(input("Ingresa un número límite: "))
+print("Primos hasta", n, ":", criba_
