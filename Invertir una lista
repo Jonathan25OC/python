@@ -1,0 +1,5 @@
+def invertir_lista(lista):
+    return [lista[i] for i in range(len(lista)-1, -1, -1)]
+
+numeros = [1, 2, 3, 4, 5]
+print(invertir_lista(numeros))  # Debería imprimir [5, 4, 3, 2, 1]
