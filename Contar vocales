@@ -1,0 +1,5 @@
+# Tu código aquí
+frase = input("Introduce una frase: ")
+vocales = "aeiouAEIOU"
+contador = sum(1 for letra in frase if letra in vocales)
+print("El número de vocales en la frase es:", contador)
