@@ -1,0 +1,4 @@
+# Tu código aquí
+numeros = [12, -7, 5, 64, -14]
+numeros_positivos = [num for num in numeros if num >= 0]
+print("Números positivos:", numeros_positivos)
