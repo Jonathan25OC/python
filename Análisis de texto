@@ -1,0 +1,41 @@
+import re
+from collections import Counter
+
+# Nombre del archivo de texto
+nombre_archivo = 'archivo.txt'
+
+def analizar_texto(nombre_archivo):
+    try:
+        # Leer el archivo
+        with open(nombre_archivo, 'r', encoding='utf-8') as archivo:
+            texto = archivo.read()
+
+        # Contar líneas
+        with open(nombre_archivo, 'r', encoding='utf-8') as archivo:
+            lineas = archivo.readlines()
+            num_lineas = len(lineas)
+
+        # Contar palabras
+        palabras = re.findall(r'\b\w+\b', texto.lower())  # Lista de palabras en minúscula
+        num_palabras = len(palabras)
+
+        # Contar caracteres
+        num_caracteres = len(texto)
+
+        # Contar las palabras más comunes
+        palabras_comunes = Counter(palabras).most_common(5)
+
+        # Mostrar los resultados
+        print("=== Análisis del Texto ===")
+        print(f"Número de líneas: {num_lineas}")
+        print(f"Número de palabras: {num_palabras}")
+        print(f"Número de caracteres: {num_caracteres}")
+        print("\nPalabras más comunes:")
+        for palabra, frecuencia in palabras_comunes:
+            print(f"'{palabra}': {frecuencia} veces")
+
+    except FileNotFoundError:
+        print("El archivo no se encuentra. Verifica el nombre y la ubicación del archivo.")
+
+# Ejecutar el análisis
+analizar_texto(nombre_archivo)
