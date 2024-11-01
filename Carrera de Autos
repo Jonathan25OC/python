@@ -1,0 +1,39 @@
+import random
+import time
+
+# Configuración de la carrera
+NUM_AUTOS = 5
+DISTANCIA_META = 50
+
+# Inicialización de los autos
+autos = [0] * NUM_AUTOS  # Lista que guarda la posición de cada auto
+
+# Función para mostrar el progreso de la carrera
+def mostrar_carrera():
+    for i, distancia in enumerate(autos):
+        print(f"Auto {i+1}: " + "-" * distancia + "🚗" + "-" * (DISTANCIA_META - distancia))
+    print("\n" + "=" * 60 + "\n")
+
+# Función principal de la carrera
+def carrera():
+    print("¡Comienza la carrera!\n")
+    ganador = None
+    
+    # Bucle de la carrera
+    while ganador is None:
+        # Avance aleatorio para cada auto
+        for i in range(NUM_AUTOS):
+            avance = random.randint(1, 3)  # Cada auto avanza entre 1 y 3 unidades
+            autos[i] += avance
+            if autos[i] >= DISTANCIA_META:
+                ganador = i + 1
+                break
+        
+        # Mostrar el progreso de la carrera
+        mostrar_carrera()
+        time.sleep(0.5)  # Pausa de medio segundo entre turnos
+
+    print(f"¡El auto {ganador} ha ganado la carrera!")
+
+# Iniciar la carrera
+carrera()
