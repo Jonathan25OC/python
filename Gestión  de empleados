@@ -1,0 +1,84 @@
+class Empleado:
+    def __init__(self, id_empleado, nombre, cargo, salario):
+        self.id_empleado = id_empleado
+        self.nombre = nombre
+        self.cargo = cargo
+        self.salario = salario
+
+    def mostrar_informacion(self):
+        print(f"ID: {self.id_empleado} | Nombre: {self.nombre} | Cargo: {self.cargo} | Salario: {self.salario}")
+
+
+class GestionEmpleados:
+    def __init__(self):
+        self.empleados = []
+
+    def agregar_empleado(self, id_empleado, nombre, cargo, salario):
+        empleado = Empleado(id_empleado, nombre, cargo, salario)
+        self.empleados.append(empleado)
+        print(f"Empleado {nombre} agregado con éxito.")
+
+    def mostrar_empleados(self):
+        if not self.empleados:
+            print("No hay empleados en el sistema.")
+        else:
+            print("=== Lista de Empleados ===")
+            for empleado in self.empleados:
+                empleado.mostrar_informacion()
+
+    def eliminar_empleado(self, id_empleado):
+        for empleado in self.empleados:
+            if empleado.id_empleado == id_empleado:
+                self.empleados.remove(empleado)
+                print(f"Empleado con ID {id_empleado} eliminado con éxito.")
+                return
+        print(f"No se encontró ningún empleado con ID {id_empleado}.")
+
+    def actualizar_salario(self, id_empleado, nuevo_salario):
+        for empleado in self.empleados:
+            if empleado.id_empleado == id_empleado:
+                empleado.salario = nuevo_salario
+                print(f"Salario de {empleado.nombre} actualizado a {nuevo_salario}.")
+                return
+        print(f"No se encontró ningún empleado con ID {id_empleado}.")
+
+
+# Menú para la gestión de empleados
+def menu():
+    gestion = GestionEmpleados()
+    while True:
+        print("\n=== Gestión de Empleados ===")
+        print("1. Agregar empleado")
+        print("2. Ver lista de empleados")
+        print("3. Eliminar empleado")
+        print("4. Actualizar salario")
+        print("5. Salir")
+        opcion = input("Selecciona una opción: ")
+
+        if opcion == '1':
+            id_empleado = input("ID del empleado: ")
+            nombre = input("Nombre del empleado: ")
+            cargo = input("Cargo del empleado: ")
+            salario = float(input("Salario del empleado: "))
+            gestion.agregar_empleado(id_empleado, nombre, cargo, salario)
+
+        elif opcion == '2':
+            gestion.mostrar_empleados()
+
+        elif opcion == '3':
+            id_empleado = input("ID del empleado a eliminar: ")
+            gestion.eliminar_empleado(id_empleado)
+
+        elif opcion == '4':
+            id_empleado = input("ID del empleado: ")
+            nuevo_salario = float(input("Nuevo salario: "))
+            gestion.actualizar_salario(id_empleado, nuevo_salario)
+
+        elif opcion == '5':
+            print("Saliendo del sistema de gestión de empleados.")
+            break
+        else:
+            print("Opción inválida, por favor intenta de nuevo.")
+
+# Ejecutar el menú de gestión de empleados
+menu()
