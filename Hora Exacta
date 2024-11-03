@@ -1,0 +1,10 @@
+from datetime import datetime
+
+# Obtener la fecha y hora actual
+hora_actual = datetime.now()
+
+# Formatear la hora en una cadena
+hora_formateada = hora_actual.strftime("%H:%M:%S")
+
+# Imprimir la hora exacta
+print(f"La hora exacta es: {hora_formateada}")
