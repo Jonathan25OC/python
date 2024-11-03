@@ -1,0 +1,10 @@
+from datetime import datetime
+
+# Obtener la fecha actual
+fecha_actual = datetime.now()
+
+# Formatear la fecha en una cadena
+fecha_formateada = fecha_actual.strftime("%Y-%m-%d")
+
+# Imprimir la fecha exacta
+print(f"La fecha exacta es: {fecha_formateada}")
