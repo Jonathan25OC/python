@@ -1,0 +1,18 @@
+from datetime import datetime
+
+def calcular_edad(fecha_nacimiento):
+    # Convertir la fecha de nacimiento a formato datetime
+    fecha_nacimiento = datetime.strptime(fecha_nacimiento, "%Y-%m-%d")
+    # Obtener la fecha actual
+    fecha_actual = datetime.now()
+    # Calcular la diferencia de años
+    edad = fecha_actual.year - fecha_nacimiento.year
+    # Ajustar si aún no ha pasado el cumpleaños en el año actual
+    if (fecha_actual.month, fecha_actual.day) < (fecha_nacimiento.month, fecha_nacimiento.day):
+        edad -= 1
+    return edad
+
+# Ejemplo de uso
+fecha_nacimiento = "2000-05-15"  # Formato: AAAA-MM-DD
+edad = calcular_edad(fecha_nacimiento)
+print("Tu edad es:", edad)
