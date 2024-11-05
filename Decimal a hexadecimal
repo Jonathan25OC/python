@@ -1,0 +1,19 @@
+# Función para convertir de decimal a hexadecimal
+def decimal_a_hexadecimal(decimal):
+    return hex(decimal)[2:]  # hex() genera '0x' al inicio, por eso usamos [2:] para quitarlo
+
+# Función para convertir de hexadecimal a decimal
+def hexadecimal_a_decimal(hexadecimal):
+    return int(hexadecimal, 16)
+
+# Ejemplos de uso
+numero_decimal = 255
+numero_hexadecimal = "ff"
+
+# Convertir decimal a hexadecimal
+hexadecimal = decimal_a_hexadecimal(numero_decimal)
+print(f"El número {numero_decimal} en hexadecimal es: {hexadecimal}")
+
+# Convertir hexadecimal a decimal
+decimal = hexadecimal_a_decimal(numero_hexadecimal)
+print(f"El número hexadecimal {numero_hexadecimal} en decimal es: {decimal}")
