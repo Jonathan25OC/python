@@ -1,0 +1,72 @@
+import numpy as np
+
+class SimplexSolver:
+    def __init__(self, c, A, b):
+        self.c = np.array(c)
+        self.A = np.array(A, dtype=float)
+        self.b = np.array(b, dtype=float)
+        self.num_vars = len(c)
+        self.num_constraints = len(b)
+
+    def solve(self):
+        # Crear tabla inicial
+        tableau = self.create_tableau()
+        
+        # Realizar iteraciones del método simplex
+        while not self.is_optimal(tableau):
+            pivot_col = self.choose_pivot_column(tableau)
+            pivot_row = self.choose_pivot_row(tableau, pivot_col)
+            tableau = self.pivot_operation(tableau, pivot_row, pivot_col)
+        
+        return self.get_solution(tableau)
+
+    def create_tableau(self):
+        tableau = np.zeros((self.num_constraints + 1, self.num_vars + self.num_constraints + 1))
+        tableau[:-1, :-1] = np.hstack([self.A, np.eye(self.num_constraints)])
+        tableau[:-1, -1] = self.b
+        tableau[-1, :self.num_vars] = -self.c
+        return tableau
+
+    def is_optimal(self, tableau):
+        return np.all(tableau[-1, :-1] >= 0)
+
+    def choose_pivot_column(self, tableau):
+        return np.argmin(tableau[-1, :-1])
+
+    def choose_pivot_row(self, tableau, pivot_col):
+        ratios = tableau[:-1, -1] / tableau[:-1, pivot_col]
+        valid_ratios = np.where(ratios > 0, ratios, np.inf)
+        return np.argmin(valid_ratios)
+
+    def pivot_operation(self, tableau, pivot_row, pivot_col):
+        pivot_element = tableau[pivot_row, pivot_col]
+        tableau[pivot_row, :] /= pivot_element
+        for i in range(len(tableau)):
+            if i != pivot_row:
+                tableau[i, :] -= tableau[i, pivot_col] * tableau[pivot_row, :]
+        return tableau
+
+    def get_solution(self, tableau):
+        solution = np.zeros(self.num_vars)
+        for i in range(self.num_vars):
+            col = tableau[:-1, i]
+            if np.count_nonzero(col) == 1 and np.sum(col) == 1:
+                row = np.where(col == 1)[0][0]
+                solution[i] = tableau[row, -1]
+        optimal_value = tableau[-1, -1]
+        return solution, optimal_value
+
+
+# Ejemplo de uso
+c = [3, 2]  # Coeficientes de la función objetivo
+A = [
+    [1, 2],
+    [2, 1]
+]  # Coeficientes de las restricciones
+b = [4, 3]  # Lados derechos de las restricciones
+
+solver = SimplexSolver(c, A, b)
+solution, optimal_value = solver.solve()
+
+print("Solución óptima:", solution)
+print("Valor óptimo de la función objetivo:", optimal_value)
