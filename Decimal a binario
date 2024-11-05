@@ -1,0 +1,19 @@
+# Función para convertir de decimal a binario
+def decimal_a_binario(decimal):
+    return bin(decimal)[2:]  # bin() genera '0b' al inicio, por eso usamos [2:] para quitarlo
+
+# Función para convertir de binario a decimal
+def binario_a_decimal(binario):
+    return int(binario, 2)
+
+# Ejemplos de uso
+numero_decimal = 25
+numero_binario = "11001"
+
+# Convertir decimal a binario
+binario = decimal_a_binario(numero_decimal)
+print(f"El número {numero_decimal} en binario es: {binario}")
+
+# Convertir binario a decimal
+decimal = binario_a_decimal(numero_binario)
+print(f"El número binario {numero_binario} en decimal es: {decimal}")
