@@ -1,0 +1,8 @@
+# Solicita la cadena al usuario
+cadena = input("Introduce una cadena de texto: ")
+
+# Calcula la longitud de la cadena
+longitud = len(cadena)
+
+# Muestra el resultado
+print("La longitud de la cadena es:", longitud)
