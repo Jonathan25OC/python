@@ -1,0 +1,8 @@
+# Solicitar la palabra al usuario
+palabra = input("Escribe una palabra: ")
+
+# Imprimir la palabra original
+print("Palabra original:", palabra)
+
+# Imprimir la palabra al revés
+print("Palabra al revés:", palabra[::-1])
