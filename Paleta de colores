@@ -1,0 +1,36 @@
+import matplotlib.pyplot as plt
+import random
+import colorsys
+
+# Función para generar una paleta de colores basada en un color principal
+def generar_paleta(color_principal, n_colores=5):
+    paleta = []
+    # Genera tonos de colores en la misma tonalidad
+    for i in range(n_colores):
+        hue_variation = (color_principal[0] + i * 0.1) % 1.0
+        paleta.append(colorsys.hsv_to_rgb(hue_variation, color_principal[1], color_principal[2]))
+    return paleta
+
+# Función para visualizar la paleta de colores
+def mostrar_paleta(paleta):
+    fig, ax = plt.subplots(figsize=(8, 2))
+    for i, color in enumerate(paleta):
+        ax.add_patch(plt.Rectangle((i, 0), 1, 1, color=color))
+    ax.set_xlim(0, len(paleta))
+    ax.set_ylim(0, 1)
+    ax.axis('off')
+    plt.show()
+
+# Generar una paleta de colores aleatoria o con un color principal
+modo = input("¿Quieres una paleta aleatoria? (sí/no): ").strip().lower()
+
+if modo == "sí":
+    # Genera una paleta con colores aleatorios
+    paleta_colores = [(random.random(), random.random(), random.random()) for _ in range(5)]
+else:
+    # Paleta basada en un color principal
+    color_principal = (0.5, 0.8, 0.9)  # color en formato HSV (tono, saturación, valor)
+    paleta_colores = generar_paleta(color_principal)
+
+# Mostrar la paleta generada
+mostrar_paleta(paleta_colores)
