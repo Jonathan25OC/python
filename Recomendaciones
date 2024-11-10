@@ -1,0 +1,39 @@
+import random
+
+# Diccionario con listas de canciones para diferentes estados de ánimo
+canciones = {
+    "feliz": [
+        "Happy - Pharrell Williams",
+        "Walking on Sunshine - Katrina and the Waves",
+        "Uptown Funk - Mark Ronson ft. Bruno Mars"
+    ],
+    "triste": [
+        "Someone Like You - Adele",
+        "Fix You - Coldplay",
+        "Creep - Radiohead"
+    ],
+    "enérgico": [
+        "Eye of the Tiger - Survivor",
+        "Can't Hold Us - Macklemore & Ryan Lewis",
+        "Stronger - Kanye West"
+    ],
+    "relajado": [
+        "Weightless - Marconi Union",
+        "Sunset Lover - Petit Biscuit",
+        "Sweater Weather - The Neighbourhood"
+    ]
+}
+
+# Función para recomendar canciones
+def recomendar_cancion(estado_animo):
+    if estado_animo in canciones:
+        return random.choice(canciones[estado_animo])
+    else:
+        return "No tengo recomendaciones para ese estado de ánimo."
+
+# Solicitar estado de ánimo al usuario
+estado_animo = input("¿Cómo te sientes? (feliz, triste, enérgico, relajado): ").strip().lower()
+recomendacion = recomendar_cancion(estado_animo)
+
+# Mostrar recomendación
+print(f"Te recomiendo escuchar: {recomendacion}")
