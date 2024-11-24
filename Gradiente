@@ -1,0 +1,30 @@
+import numpy as np
+
+# Definimos la función a minimizar
+def funcion_objetivo(x):
+    return (x - 3)**2
+
+# Derivada de la función (gradiente)
+def gradiente(x):
+    return 2 * (x - 3)
+
+# Parámetros del descenso de gradiente
+x_inicial = 0.0    # Punto de inicio
+tasa_aprendizaje = 0.1  # Tamaño del paso
+iteraciones = 50   # Número de iteraciones
+
+# Inicializamos el punto inicial
+x = x_inicial
+historial_x = [x]  # Para guardar el progreso del gradiente
+
+# Descenso de gradiente
+for i in range(iteraciones):
+    grad = gradiente(x)  # Calculamos el gradiente
+    x = x - tasa_aprendizaje * grad  # Actualizamos el valor de x
+    historial_x.append(x)  # Guardamos el valor de x
+
+    # Imprimimos información en cada iteración
+    print(f"Iteración {i+1}: x = {x:.4f}, f(x) = {funcion_objetivo(x):.4f}")
+
+# Resultado final
+print(f"\nMínimo aproximado: x = {x:.4f}, f(x) = {funcion_objetivo(x):.4f}")
