@@ -1,0 +1,70 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generamos datos de ejemplo para un modelo lineal y = w*x + b
+np.random.seed(42)
+m = 100  # Número de puntos de datos
+X = 2 * np.random.rand(m, 1)  # Características aleatorias entre 0 y 2
+y = 4 + 3 * X + np.random.randn(m, 1)  # Relación lineal con ruido
+
+# Inicializamos los parámetros
+w = np.random.randn(1)  # Peso aleatorio inicial
+b = np.random.randn(1)  # Sesgo aleatorio inicial
+learning_rate = 0.1
+n_iterations = 1000
+m = len(X)
+
+# Función de costo: MSE
+def compute_cost(X, y, w, b):
+    predictions = X.dot(w) + b
+    cost = (1 / (2 * m)) * np.sum((predictions - y) ** 2)
+    return cost
+
+# Gradiente Descendente
+def gradient_descent(X, y, w, b, learning_rate, n_iterations):
+    cost_history = []
+    
+    for i in range(n_iterations):
+        predictions = X.dot(w) + b
+        error = predictions - y
+        
+        # Cálculo de los gradientes
+        dw = (1 / m) * np.dot(X.T, error)
+        db = (1 / m) * np.sum(error)
+        
+        # Actualización de los parámetros
+        w -= learning_rate * dw
+        b -= learning_rate * db
+        
+        # Guardamos el valor de la función de costo
+        cost = compute_cost(X, y, w, b)
+        cost_history.append(cost)
+        
+        # Imprimir cada 100 iteraciones para seguimiento
+        if i % 100 == 0:
+            print(f"Iteración {i}: Costo = {cost:.4f}, w = {w[0]:.4f}, b = {b[0]:.4f}")
+    
+    return w, b, cost_history
+
+# Ejecutamos el gradiente descendente
+w_optimal, b_optimal, cost_history = gradient_descent(X, y, w, b, learning_rate, n_iterations)
+
+# Visualización de la función de costo durante las iteraciones
+plt.plot(cost_history)
+plt.xlabel('Iteraciones')
+plt.ylabel('Costo (MSE)')
+plt.title('Descenso del Gradiente - Función de Costo')
+plt.show()
+
+# Visualizar la línea ajustada por el modelo
+plt.scatter(X, y, color='blue', label='Datos reales')
+plt.plot(X, X.dot(w_optimal) + b_optimal, color='red', label='Modelo ajustado')
+plt.xlabel('X')
+plt.ylabel('y')
+plt.title('Regresión Lineal usando Gradiente Descendente')
+plt.legend()
+plt.show()
+
+# Imprimir los resultados finales
+print(f"Valor final de w: {w_optimal[0]:.4f}")
+print(f"Valor final de b: {b_optimal[0]:.4f}")
