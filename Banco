@@ -1,0 +1,78 @@
+class Banco:
+    def __init__(self):
+        self.usuarios = {}  # Diccionario para almacenar usuarios y sus cuentas
+
+    def crear_usuario(self, nombre_usuario):
+        if nombre_usuario in self.usuarios:
+            print(f"El usuario '{nombre_usuario}' ya existe.")
+        else:
+            self.usuarios[nombre_usuario] = {}
+            print(f"Usuario '{nombre_usuario}' creado exitosamente.")
+
+    def crear_cuenta(self, nombre_usuario, numero_cuenta):
+        if nombre_usuario not in self.usuarios:
+            print(f"El usuario '{nombre_usuario}' no existe.")
+        elif numero_cuenta in self.usuarios[nombre_usuario]:
+            print(f"La cuenta '{numero_cuenta}' ya existe para el usuario '{nombre_usuario}'.")
+        else:
+            self.usuarios[nombre_usuario][numero_cuenta] = 0  # Saldo inicial en 0
+            print(f"Cuenta '{numero_cuenta}' creada exitosamente para el usuario '{nombre_usuario}'.")
+
+    def depositar(self, nombre_usuario, numero_cuenta, monto):
+        if nombre_usuario not in self.usuarios or numero_cuenta not in self.usuarios[nombre_usuario]:
+            print(f"No se encontró la cuenta '{numero_cuenta}' para el usuario '{nombre_usuario}'.")
+        elif monto <= 0:
+            print("El monto a depositar debe ser mayor a 0.")
+        else:
+            self.usuarios[nombre_usuario][numero_cuenta] += monto
+            print(f"Depósito de {monto} realizado exitosamente en la cuenta '{numero_cuenta}'.")
+
+    def retirar(self, nombre_usuario, numero_cuenta, monto):
+        if nombre_usuario not in self.usuarios or numero_cuenta not in self.usuarios[nombre_usuario]:
+            print(f"No se encontró la cuenta '{numero_cuenta}' para el usuario '{nombre_usuario}'.")
+        elif monto <= 0:
+            print("El monto a retirar debe ser mayor a 0.")
+        elif self.usuarios[nombre_usuario][numero_cuenta] < monto:
+            print("Fondos insuficientes.")
+        else:
+            self.usuarios[nombre_usuario][numero_cuenta] -= monto
+            print(f"Retiro de {monto} realizado exitosamente de la cuenta '{numero_cuenta}'.")
+
+    def mostrar_saldo(self, nombre_usuario, numero_cuenta):
+        if nombre_usuario not in self.usuarios or numero_cuenta not in self.usuarios[nombre_usuario]:
+            print(f"No se encontró la cuenta '{numero_cuenta}' para el usuario '{nombre_usuario}'.")
+        else:
+            saldo = self.usuarios[nombre_usuario][numero_cuenta]
+            print(f"El saldo de la cuenta '{numero_cuenta}' del usuario '{nombre_usuario}' es: {saldo}.")
+
+    def mostrar_cuentas(self, nombre_usuario):
+        if nombre_usuario not in self.usuarios:
+            print(f"El usuario '{nombre_usuario}' no existe.")
+        else:
+            cuentas = self.usuarios[nombre_usuario]
+            if not cuentas:
+                print(f"El usuario '{nombre_usuario}' no tiene cuentas.")
+            else:
+                print(f"Cuentas del usuario '{nombre_usuario}':")
+                for numero_cuenta, saldo in cuentas.items():
+                    print(f"  - Cuenta: {numero_cuenta}, Saldo: {saldo}")
+
+
+# Ejemplo de uso
+banco = Banco()
+
+# Crear usuarios
+banco.crear_usuario("Juan")
+banco.crear_usuario("Maria")
+
+# Crear cuentas
+banco.crear_cuenta("Juan", "123456")
+banco.crear_cuenta("Maria", "654321")
+
+# Realizar depósitos y retiros
+banco.depositar("Juan", "123456", 500)
+banco.retirar("Juan", "123456", 200)
+
+# Mostrar saldos y cuentas
+banco.mostrar_saldo("Juan", "123456")
+banco.mostrar_cuentas("Maria")
