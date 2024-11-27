@@ -1,0 +1,64 @@
+class SucursalAutos:
+    def __init__(self):
+        self.inventario = {}  # Diccionario para almacenar autos y su información
+
+    def agregar_auto(self, modelo, marca, precio, cantidad):
+        if modelo in self.inventario:
+            self.inventario[modelo]["cantidad"] += cantidad
+            print(f"Se añadieron {cantidad} unidades del modelo '{modelo}'.")
+        else:
+            self.inventario[modelo] = {
+                "marca": marca,
+                "precio": precio,
+                "cantidad": cantidad
+            }
+            print(f"Auto '{modelo}' de marca '{marca}' agregado al inventario con {cantidad} unidades.")
+
+    def mostrar_inventario(self):
+        if not self.inventario:
+            print("El inventario está vacío.")
+        else:
+            print("Inventario de autos:")
+            for modelo, datos in self.inventario.items():
+                print(f"Modelo: {modelo}, Marca: {datos['marca']}, Precio: {datos['precio']}, Cantidad: {datos['cantidad']}")
+
+    def vender_auto(self, modelo, cantidad):
+        if modelo not in self.inventario:
+            print(f"El modelo '{modelo}' no está en el inventario.")
+        elif self.inventario[modelo]["cantidad"] < cantidad:
+            print(f"No hay suficientes unidades de '{modelo}' para completar la venta.")
+        else:
+            self.inventario[modelo]["cantidad"] -= cantidad
+            total = self.inventario[modelo]["precio"] * cantidad
+            print(f"Venta realizada: {cantidad} unidad(es) de '{modelo}'. Total: ${total}.")
+            if self.inventario[modelo]["cantidad"] == 0:
+                del self.inventario[modelo]
+                print(f"El modelo '{modelo}' se ha agotado y se eliminó del inventario.")
+
+    def buscar_auto(self, modelo):
+        if modelo not in self.inventario:
+            print(f"El modelo '{modelo}' no está en el inventario.")
+        else:
+            datos = self.inventario[modelo]
+            print(f"Detalles del modelo '{modelo}': Marca: {datos['marca']}, Precio: {datos['precio']}, Cantidad: {datos['cantidad']}")
+
+# Ejemplo de uso
+sucursal = SucursalAutos()
+
+# Agregar autos al inventario
+sucursal.agregar_auto("Corolla", "Toyota", 20000, 10)
+sucursal.agregar_auto("Civic", "Honda", 22000, 5)
+sucursal.agregar_auto("Mustang", "Ford", 30000, 2)
+
+# Mostrar el inventario
+sucursal.mostrar_inventario()
+
+# Buscar un auto específico
+sucursal.buscar_auto("Civic")
+
+# Vender autos
+sucursal.vender_auto("Corolla", 3)
+sucursal.vender_auto("Mustang", 2)  # Se agotará
+
+# Mostrar el inventario actualizado
+sucursal.mostrar_inventario()
